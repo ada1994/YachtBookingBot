@@ -83,17 +83,13 @@ async def start(update: Update, context):
         disable_web_page_preview=True
     )
 
-
-# 启动应用
 def main():
-    # 创建 Application 对象
-    application = Application.builder().token("8034425757:AAGsRVp13yopy38n6NVap9Re9zIl7oMcYpw").build()  # 替换为你的 Bot API token
-
-    # 添加处理器
+    TOKEN = os.environ.get("TOKEN")
+    if not TOKEN:
+        print("请设置 TOKEN 环境变量")
+        return
+    application = Application.builder().token(TOKEN).build()
     application.add_handler(CommandHandler("start", start))
-
-    # 启动机器人
-    logging.debug("Starting bot...")
     application.run_polling()
 
 if __name__ == "__main__":
